@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Christmas Party</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes snowfall {
+            0% { 
+                transform: translateY(-10vh) translateX(0) rotate(0deg); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(100vh) translateX(100px) rotate(360deg); 
+                opacity: 0.3; 
+            }
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes slideInFromLeft {
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInFromRight {
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes sparkle {
+            0%, 100% { 
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% { 
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+            }
+        }
+        @keyframes textGlow {
+            0%, 100% { 
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+                             0 0 20px rgba(255, 255, 255, 0.3),
+                             0 0 30px rgba(255, 215, 0, 0.4);
+            }
+            50% { 
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                             0 0 30px rgba(255, 255, 255, 0.6),
+                             0 0 40px rgba(255, 215, 0, 0.8),
+                             0 0 50px rgba(255, 215, 0, 0.6);
+            }
+        }
+        @keyframes bounce {
+            0%, 100% { 
+                transform: translateY(0);
+            }
+            50% { 
+                transform: translateY(-10px);
+            }
+        }
+        @keyframes scaleIn {
+            0% { 
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .snowflake {
+            position: fixed;
+            top: -10vh;
+            color: white;
+            font-size: 1.2em;
+            opacity: 0.9;
+            pointer-events: none;
+            animation: snowfall linear infinite;
+            z-index: 1000;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8);
+        }
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        .twinkle {
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .slide-left {
+            animation: slideInFromLeft 1s ease-out forwards;
+        }
+        .slide-right {
+            animation: slideInFromRight 1s ease-out forwards;
+        }
+        .fade-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .text-gold {
+            color: #FFD700;
+        }
+        .text-glow {
+            animation: textGlow 3s ease-in-out infinite;
+        }
+        .bounce-animation {
+            animation: bounce 2s ease-in-out infinite;
+        }
+        .scale-in {
+            animation: scaleIn 1.2s ease-out forwards;
+        }
+        .wiggle-animation {
+            animation: wiggle 1.5s ease-in-out infinite;
+        }
+        .bg-christmas-cover {
+            background-image: url('https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .bg-christmas-content {
+            background-image: url('https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .logo-container {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,255,255,0.3));
+            border: 4px solid rgba(255,215,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .logo-image {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+        /* Music player (floating) */
+        .music-player {
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(3px);
+            background: rgba(30,30,30,0.18); /* lebih transparan */
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: none;
+            opacity: 0.7; /* lebih samar */
+            transition: opacity 0.2s;
+        }
+        .music-player:hover,
+        .music-player:focus-within {
+            opacity: 1;
+        }
+        .music-player button {
+            background: transparent;
+            border: none;
+            color: #ffd700;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .music-player button:hover {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            transform: scale(1.08);
+        }
+        .music-player .status {
+            color: #fffbe6;
+            font-weight: 400;
+            font-size: 12px;
+            padding: 0 4px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 overflow-x-hidden">
+    <!-- Decorative elements -->
+    <div id="snowflakes"></div>
+    <div id="sparkles"></div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-900 via-red-900 to-green-900 relative">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        
+        <div class="z-10 w-full max-w-md mx-4">
+            <div class="bg-white bg-opacity-10 backdrop-blur-xl rounded-2xl p-8 shadow-2xl">
+                <div class="text-center mb-8">
+                    <div class="text-6xl mb-4 twinkle">🔐</div>
+                    <h1 class="text-4xl font-bold text-white mb-2">Admin Login</h1>
+                    <p class="text-gold text-lg">Masukkan password untuk melanjutkan</p>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-white text-sm font-semibold mb-3">Password Admin</label>
+                    <input 
+                        type="password" 
+                        id="adminPassword" 
+                        placeholder="Masukkan password"
+                        class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-opacity-30"
+                        onkeypress="if(event.key === 'Enter') loginAdmin()"
+                    />
+                </div>
+
+                <button 
+                    onclick="loginAdmin()"
+                    class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-6 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg"
+                >
+                    Login 🎄
+                </button>
+
+                <div id="loginError" class="hidden mt-4 p-3 bg-red-500 bg-opacity-30 rounded-lg border-2 border-red-400">
+                    <p class="text-white text-center text-sm">❌ Password salah! Silakan coba lagi.</p>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <p class="text-gray-300 text-sm">Password default: <span class="text-yellow-400 font-semibold">christmas2024</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPage" class="hidden min-h-screen flex items-center justify-center bg-gradient-to-br from-green-900 via-red-900 to-green-900 relative py-8">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        
+        <div class="z-10 w-full max-w-6xl mx-4">
+            <div class="bg-white bg-opacity-10 backdrop-blur-xl rounded-2xl p-8 shadow-2xl">
+                <div class="text-center mb-8">
+                    <div class="text-6xl mb-4 twinkle">🎅</div>
+                    <h1 class="text-4xl font-bold text-white mb-2">Admin Panel</h1>
+                    <p class="text-gold text-lg">Kelola Undangan Christmas Party</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Form Section -->
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-white">Buat Undangan Baru</h2>
+                            <button 
+                                onclick="logoutAdmin()"
+                                class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition-all"
+                            >
+                                Logout 🚪
+                            </button>
+                        </div>
+                        
+                        <!-- Guest Name Input -->
+                        <div class="mb-6">
+                            <label class="block text-white text-sm font-semibold mb-3">Nama Tamu Undangan</label>
+                            <input 
+                                type="text" 
+                                id="adminGuestName" 
+                                placeholder="Contoh: Bapak/Ibu Keluarga Budiman"
+                                class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-opacity-30"
+                            />
+                        </div>
+
+                        <!-- Generate Button -->
+                        <button 
+                            onclick="generateInvitation()"
+                            class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-6 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg mb-4"
+                        >
+                            Generate Link Undangan 🎁
+                        </button>
+
+                        <!-- Success Message -->
+                        <div id="successMessage" class="hidden mt-4 p-4 bg-green-500 bg-opacity-30 rounded-lg border-2 border-green-400">
+                            <p class="text-white text-center font-semibold">✅ Link undangan berhasil dibuat!</p>
+                        </div>
+                    </div>
+
+                    <!-- Table Section -->
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-white">Daftar Undangan</h2>
+                            <span class="bg-yellow-400 text-gray-900 font-bold px-3 py-1 rounded-full text-sm">
+                                Total: <span id="totalCount">0</span>
+                            </span>
+                        </div>
+                        
+                        <div class="bg-white bg-opacity-10 rounded-lg overflow-hidden max-h-96 overflow-y-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-white bg-opacity-20 sticky top-0">
+                                    <tr>
+                                        <th class="px-4 py-3 text-white font-semibold text-sm">No</th>
+                                        <th class="px-4 py-3 text-white font-semibold text-sm">Nama Tamu</th>
+                                        <th class="px-4 py-3 text-white font-semibold text-sm">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invitationTable">
+                                    <tr>
+                                        <td colspan="3" class="px-4 py-8 text-center text-gray-300">
+                                            Belum ada undangan yang dibuat
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cover Page -->
+    <div id="coverPage" class="hidden min-h-screen flex items-center justify-center bg-christmas-cover relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60"></div>
+        
+        <div class="text-center z-10 px-4">
+            <!-- Logo Section -->
+            <div class="mb-8 fade-up">
+                <div class="logo-container">
+                    <img src="img/logo OMK.png" 
+                         class="logo-image" 
+                         alt="Christmas Logo">
+                </div>
+            </div>
+
+            <div class="twinkle text-6xl mb-4 bounce-animation">⭐</div>
+            <h1 class="text-2xl md:text-8xl font-bold text-white mb-4 slide-left drop-shadow-2xl text-glow">Coming Home : It's Christmas</h1>
+            <h2 class="text-4xl md:text-6xl font-bold text-gold mb-8 slide-right drop-shadow-2xl text-glow">OMK PASSIR</h2>
+            
+            <div class="float mb-8 scale-in" style="animation-delay: 0.5s">
+                <div class="text-8xl drop-shadow-2xl wiggle-animation">🎄</div>
+            </div>
+            
+            <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-lg p-6 mb-8 fade-up max-w-md mx-auto border-2 border-white border-opacity-30">
+                <p class="text-white text-xl mb-4">Kepada Yth:</p>
+                <p id="coverGuestName" class="text-3xl font-bold text-gold drop-shadow-lg">Tamu Terhormat</p>
+            </div>
+            
+            <button 
+                onclick="openInvitation()"
+                class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-full text-xl pulse-animation transition-all transform hover:scale-105 shadow-2xl"
+            >
+                Buka Undangan 🎁
+            </button>
+        </div>
+    </div>
+
+    <!-- Content Page -->
+    <div id="contentPage" class="hidden min-h-screen bg-christmas-content relative py-12 px-4">
+        <div class="absolute inset-0 bg-gradient-to-b from-red-900 via-transparent to-green-900 opacity-85"></div>
+        
+        <div class="max-w-4xl mx-auto relative z-10">
+            <!-- Logo on Content Page -->
+            <div class="text-center mb-8 fade-up">
+                <div class="logo-container" style="width: 100px; height: 100px;">
+                    <img src="img/logo OMK.png" 
+                         class="logo-image" 
+                         style="width: 85px; height: 85px;"
+                         alt="Christmas Logo">
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="text-center mb-12 fade-up">
+                <div class="text-6xl mb-4 twinkle">🎅</div>
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-2 drop-shadow-lg">Merry Christmas!</h1>
+                <p class="text-2xl text-gold drop-shadow-lg">& Happy New Year 2025</p>
+            </div>
+
+            <!-- Guest Name Card -->
+            <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-2xl p-8 mb-8 text-center slide-left border-2 border-white border-opacity-20">
+                <p class="text-white text-xl mb-2">Dengan hormat kami mengundang:</p>
+                <h2 id="displayName" class="text-4xl font-bold text-gold mb-4 drop-shadow-lg">Tamu Terhormat</h2>
+                <div class="flex justify-center gap-4 text-4xl">
+                    <span class="twinkle">✨</span>
+                    <span class="twinkle" style="animation-delay: 0.3s">✨</span>
+                    <span class="twinkle" style="animation-delay: 0.6s">✨</span>
+                </div>
+            </div>
+
+            <!-- Message -->
+            <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-2xl p-8 mb-8 fade-up border-2 border-white border-opacity-20" style="animation-delay: 0.6s">
+                <div class="text-center mb-6">
+                    <div class="text-5xl mb-4 float">🎄</div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Pesan Spesial</h3>
+                </div>
+                <p class="text-white text-center text-lg leading-relaxed">
+                    Tema "Coming Home : It's Christmas" merupakan perayaan kehangatan dimana Natal menjadi momen
+                    berharga untuk kembali ke pelukan kasih Tuhan dan Keluarga, sekaligus bentuk penerimaan diri
+                    yang membawa kita "pulang" kepada jati diri yang sebenarnya dimanapun kita berada,
+                    melalui semangat kebersamaan ini, kita diajak untuk mensyukuri dan merayakan
+                    perjalanan setahun yang telah dilalui bersama OMK PASSIR.
+                </p>
+            </div>
+
+            <!-- Event Details -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-2xl p-6 slide-left border-2 border-white border-opacity-20" style="animation-delay: 0.2s">
+                    <div class="text-5xl mb-4 text-center">📅</div>
+                    <h3 class="text-2xl font-bold text-white mb-3 text-center">Tanggal & Waktu</h3>
+                    <p class="text-white text-center text-lg">Sabtu, 10 Januari 2025</p>
+                    <p class="text-gold text-center text-xl font-semibold">18:00 - SELESAI </p>
+                </div>
+
+                <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-2xl p-6 slide-right border-2 border-white border-opacity-20" style="animation-delay: 0.2s">
+                    <div class="text-5xl mb-4 text-center">📍</div>
+                    <h3 class="text-2xl font-bold text-white mb-3 text-center">Lokasi</h3>
+                    <p class="text-white text-center text-lg">Ka Sary home</p>
+                    <p class="text-gold text-center text-xl font-semibold">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Karmel" target="_blank" rel="noopener noreferrer" class="underline hover:text-white">
+                            Karmel — Lihat di Google Maps
+                        </a>
+                    </p>
+                    <div class="mt-4 flex justify-center">
+                        <iframe
+                            class="w-full max-w-md h-48 rounded-lg border-0"
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d294.3719147209864!2d122.20198130303885!3d-8.62976392574067!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sid!2sid!4v1767595384046!5m2!1sid!2sid"
+                            allowfullscreen=""
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dress Code -->
+            <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-2xl p-8 mb-8 text-center fade-up border-2 border-white border-opacity-20" style="animation-delay: 0.4s">
+                <div class="text-5xl mb-4">👔</div>
+                <h3 class="text-2xl font-bold text-white mb-3">Dress Code</h3>
+                <p class="text-gold text-xl font-semibold">Formal / Semi-Formal</p>
+                <p class="text-white mt-2">RED, WHITE OR BEIGE</p>
+            </div>
+
+            <!-- Message -->
+            <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-2xl p-8 mb-8 fade-up border-2 border-white border-opacity-20" style="animation-delay: 0.6s">
+                
+
+                <div class="flex flex-col items-center gap-4">
+                    <!-- Letakkan file tanda tangan di folder img/signature.png -->
+                    <img src="img/ttd.png" alt="Tanda tangan Ketua" class="w-48 max-w-xs object-contain" />
+
+                    <!-- Ganti teks di bawah sesuai nama dan jabatan sebenarnya -->
+                    <p class="text-white text-lg font-semibold">Petrus Bernotius Lando</p>
+                    <p class="text-gold text-sm">Ketua OMK PASSIR</p>
+                </div>
+            </div>
+
+            <!-- Instagram Section -->
+            <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-2xl p-6 mb-8 fade-up border-2 border-white border-opacity-20 text-center" style="animation-delay: 0.8s">
+                <div class="text-4xl mb-3">📸</div>
+                <h3 class="text-2xl font-bold text-white mb-2">Ikuti Instagram Kami</h3>
+                <p class="text-white mb-4">Dapatkan update acara, foto, dan pengumuman terbaru melalui Instagram resmi OMK PASSIR.</p>
+                <a href="https://www.instagram.com/omk.passir?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-400 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:scale-105 transition-transform">
+                    <span class="text-lg">@omk.passir</span>
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center fade-up" style="animation-delay: 1s">
+                <div class="flex justify-center gap-4 text-5xl mb-6">
+                    <span class="twinkle">🎅</span>
+                    <span class="twinkle" style="animation-delay: 0.2s">🎄</span>
+                    <span class="twinkle" style="animation-delay: 0.4s">⭐</span>
+                    <span class="twinkle" style="animation-delay: 0.6s">🎁</span>
+                </div>
+                <p class="text-white text-xl mb-2">Sampai jumpa !</p>
+                <p class="text-gold text-1xl font-bold">GOD IS GOOD ALL THE TIME ! 🎅</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Music Player -->
+    <div id="musicPlayer" class="music-player" aria-hidden="false">
+        <!-- Ganti audio/christmas.mp3 dengan path file musik Anda -->
+        <audio id="bgMusic" src="audio/Jingle.mp3" loop preload="auto"></audio>
+        <button id="musicToggle" title="Play / Pause" aria-pressed="false">▶</button>
+        <button id="musicMute" title="Mute / Unmute" aria-pressed="false">🔊</button>
+        <div id="musicStatus" class="status">Music: Off</div>
+    </div>
+
+    <script>
+        // Simple encryption for password
+        const ADMIN_PASSWORD_HASH = 'Y2hyaXN0bWFzMjAyNA=='; // Base64 encoded "christmas2024"
+        const STORAGE_KEY = 'christmas_invitations';
+        let isAdminLoggedIn = false;
+        let invitationList = [];
+        let currentGuestName = '';
+
+        // Load data from storage
+        function loadInvitations() {
+            const stored = window.storage ? null : localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                try {
+                    invitationList = JSON.parse(stored);
+                    updateTable();
+                } catch (e) {
+                    console.error('Error loading invitations:', e);
+                    invitationList = [];
+                }
+            }
+        }
+
+        // Save data to storage
+        function saveInvitations() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(invitationList));
+            } catch (e) {
+                console.error('Error saving invitations:', e);
+            }
+        }
+
+        function simpleEncrypt(text) {
+            return btoa(text); // Base64 encode
+        }
+
+        function loginAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            const hashedPassword = simpleEncrypt(password);
+            
+            if (hashedPassword === ADMIN_PASSWORD_HASH) {
+                isAdminLoggedIn = true;
+                document.getElementById('loginPage').classList.add('hidden');
+                document.getElementById('adminPage').classList.remove('hidden');
+                document.getElementById('loginError').classList.add('hidden');
+                document.getElementById('adminPassword').value = '';
+                
+                // Load saved invitations
+                loadInvitations();
+            } else {
+                const errorDiv = document.getElementById('loginError');
+                errorDiv.classList.remove('hidden');
+                setTimeout(() => {
+                    errorDiv.classList.add('hidden');
+                }, 3000);
+            }
+        }
+
+        function logoutAdmin() {
+            if (confirm('Yakin ingin logout? 🎄')) {
+                isAdminLoggedIn = false;
+                document.getElementById('adminPage').classList.add('hidden');
+                document.getElementById('loginPage').classList.remove('hidden');
+            }
+        }
+
+        // Create enhanced snowflakes
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeCount = 40;
+            const snowflakeChars = ['❄', '❅', '❆', '✻', '✼'];
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.fontSize = (Math.random() * 15 + 12) + 'px';
+                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        // Create sparkle effects
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            const sparkleCount = 20;
+            
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.innerHTML = '✨';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                sparkle.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        function generateInvitation() {
+            const guestName = document.getElementById('adminGuestName').value.trim();
+            
+            if (guestName === '') {
+                alert('Mohon masukkan nama tamu terlebih dahulu! 🎄');
+                return;
+            }
+            
+            // Check if name already exists
+            const exists = invitationList.some(inv => inv.name === guestName);
+            if (exists) {
+                alert('Nama tamu ini sudah ada dalam daftar! 🎄');
+                return;
+            }
+            
+            const invitationId = btoa(guestName + Date.now()).substring(0, 10);
+            const link = `${window.location.origin}${window.location.pathname}?invite=${invitationId}&name=${encodeURIComponent(guestName)}`;
+            
+            invitationList.push({
+                id: invitationId,
+                name: guestName,
+                link: link,
+                createdAt: new Date().toLocaleString('id-ID')
+            });
+            
+            // Save to storage
+            saveInvitations();
+            
+            updateTable();
+            
+            document.getElementById('adminGuestName').value = '';
+            
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.remove('hidden');
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+            }, 3000);
+        }
+
+        function updateTable() {
+            const tbody = document.getElementById('invitationTable');
+            const totalCount = document.getElementById('totalCount');
+            
+            totalCount.textContent = invitationList.length;
+            
+            if (invitationList.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="3" class="px-4 py-8 text-center text-gray-300">
+                            Belum ada undangan yang dibuat
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = invitationList.map((inv, index) => `
+                <tr class="border-t border-white border-opacity-10 hover:bg-white hover:bg-opacity-5 transition-colors">
+                    <td class="px-4 py-3 text-white text-sm">${index + 1}</td>
+                    <td class="px-4 py-3 text-white text-sm">${inv.name}</td>
+                    <td class="px-4 py-3">
+                        <button 
+                            onclick="copyInvitationLink('${inv.link}')"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-3 py-1 rounded text-xs transition-all"
+                        >
+                            Copy Link
+                        </button>
+                        <button 
+                            onclick="previewInvitation('${inv.name}')"
+                            class="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded text-xs transition-all ml-2"
+                        >
+                            Preview
+                        </button>
+                        <button 
+                            onclick="deleteInvitation('${inv.id}')"
+                            class="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1 rounded text-xs transition-all ml-2"
+                        >
+                            Hapus
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteInvitation(id) {
+            if (confirm('Yakin ingin menghapus undangan ini? 🎄')) {
+                invitationList = invitationList.filter(inv => inv.id !== id);
+                saveInvitations();
+                updateTable();
+            }
+        }
+
+        function copyInvitationLink(link) {
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Link berhasil dicopy! 🎄');
+            });
+        }
+
+        function previewInvitation(guestName) {
+            currentGuestName = guestName;
+            showCoverPage();
+        }
+
+        function showCoverPage() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('coverPage').classList.remove('hidden');
+        }
+
+        function openInvitation() {
+            document.getElementById('coverPage').classList.add('hidden');
+            document.getElementById('contentPage').classList.remove('hidden');
+        }
+
+        // Music player logic
+        function initMusicPlayer() {
+            const audio = document.getElementById('bgMusic');
+            const toggle = document.getElementById('musicToggle');
+            const muteBtn = document.getElementById('musicMute');
+            const status = document.getElementById('musicStatus');
+
+            if (!audio || !toggle || !muteBtn || !status) return;
+
+            // Set volume awal
+            audio.volume = 0.6;
+
+            // Try autoplay (may be blocked by browser)
+            audio.play().then(() => {
+                toggle.textContent = '⏸';
+                toggle.setAttribute('aria-pressed', 'true');
+                status.textContent = 'Music: On';
+            }).catch(() => {
+                // Autoplay blocked, tunggu user interaction
+                toggle.textContent = '▶';
+                toggle.setAttribute('aria-pressed', 'false');
+                status.textContent = 'Music: Off';
+            });
+
+            // Toggle play/pause
+            toggle.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    toggle.textContent = '⏸';
+                    toggle.setAttribute('aria-pressed', 'true');
+                    status.textContent = 'Music: On';
+                } else {
+                    audio.pause();
+                    toggle.textContent = '▶';
+                    toggle.setAttribute('aria-pressed', 'false');
+                    status.textContent = 'Music: Off';
+                }
+            });
+
+            // Toggle mute
+            muteBtn.addEventListener('click', () => {
+                audio.muted = !audio.muted;
+                muteBtn.textContent = audio.muted ? '🔈' : '🔊';
+                muteBtn.setAttribute('aria-pressed', String(audio.muted));
+            });
+
+            // Update status saat audio selesai
+            audio.addEventListener('ended', () => {
+                toggle.textContent = '▶';
+                toggle.setAttribute('aria-pressed', 'false');
+                status.textContent = 'Music: Ended';
+            });
+        }
+
+         // Check URL parameters on load
+         window.onload = function() {
+             const urlParams = new URLSearchParams(window.location.search);
+             const guestName = urlParams.get('name');
+             
+             if (guestName) {
+                 // Guest invitation link - show cover page
+                 currentGuestName = decodeURIComponent(guestName);
+                 document.getElementById('coverGuestName').textContent = currentGuestName;
+                 document.getElementById('loginPage').classList.add('hidden');
+                 document.getElementById('coverPage').classList.remove('hidden');
+             } else {
+                 // No parameters - show login page for admin
+                 document.getElementById('loginPage').classList.remove('hidden');
+             }
+             
+             createSnowflakes();
+             createSparkles();
++            initMusicPlayer(); // Inisialisasi music player
+         };
+    </script>
+</body>
+</html>
