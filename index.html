@@ -460,8 +460,44 @@
             <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-2xl p-8 mb-8 text-center fade-up border-2 border-white border-opacity-20" style="animation-delay: 0.4s">
                 <div class="text-5xl mb-4">👔</div>
                 <h3 class="text-2xl font-bold text-white mb-3">Dress Code</h3>
-                <p class="text-gold text-xl font-semibold">Formal / Semi-Formal</p>
+                <p class="text-red text-xl font-semibold">Formal / Semi-Formal</p>
                 <p class="text-white mt-2">RED, WHITE OR BEIGE</p>
+                
+                <!-- Color Palette Examples -->
+                <div class="mt-6 flex flex-col gap-4">
+                    <!-- Red Example -->
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4 backdrop-blur-sm border border-red-500 border-opacity-50">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-white font-semibold text-left">🔴 RED</p>
+                               
+                            </div>
+                            <div class="w-16 h-16 rounded-lg bg-red-600 shadow-lg border-2 border-red-400"></div>
+                        </div>
+                    </div>
+
+                    <!-- White Example -->
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4 backdrop-blur-sm border border-white border-opacity-50">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-white font-semibold text-left">⚪ WHITE</p>
+                                
+                            </div>
+                            <div class="w-16 h-16 rounded-lg bg-white shadow-lg border-2 border-gray-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Beige Example -->
+                    <div class="bg-white bg-opacity-10 rounded-lg p-4 backdrop-blur-sm border border-opacity-50" style="border-color: #F5E6D3;">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-white font-semibold text-left">🟡 BEIGE</p>
+                                
+                            </div>
+                            <div class="w-16 h-16 rounded-lg shadow-lg border-2" style="background-color: #F5E6D3; border-color: #D4C4B0;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Message -->
@@ -788,6 +824,7 @@
                  // Guest invitation link - show cover page
                  currentGuestName = decodeURIComponent(guestName);
                  document.getElementById('coverGuestName').textContent = currentGuestName;
+                 document.getElementById('displayName').textContent = currentGuestName;
                  document.getElementById('loginPage').classList.add('hidden');
                  document.getElementById('coverPage').classList.remove('hidden');
              } else {
@@ -797,10 +834,9 @@
              
              createSnowflakes();
              createSparkles();
-+            initMusicPlayer(); // Inisialisasi music player
+             initMusicPlayer(); // Inisialisasi music player
          };
     </script>
 </body>
 
 </html>
-
