@@ -6,16 +6,6 @@
     <title>Undangan Christmas Party</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @keyframes snowfall {
-            0% { 
-                transform: translateY(-10vh) translateX(0) rotate(0deg); 
-                opacity: 1; 
-            }
-            100% { 
-                transform: translateY(100vh) translateX(100px) rotate(360deg); 
-                opacity: 0.3; 
-            }
-        }
         @keyframes twinkle {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.5; transform: scale(0.8); }
@@ -85,17 +75,6 @@
             0%, 100% { transform: rotate(-3deg); }
             50% { transform: rotate(3deg); }
         }
-        .snowflake {
-            position: fixed;
-            top: -10vh;
-            color: white;
-            font-size: 1.2em;
-            opacity: 0.9;
-            pointer-events: none;
-            animation: snowfall linear infinite;
-            z-index: 1000;
-            text-shadow: 0 0 5px rgba(255,255,255,0.8);
-        }
         .sparkle {
             position: fixed;
             pointer-events: none;
@@ -141,7 +120,7 @@
             background-position: center;
         }
         .bg-christmas-content {
-            background-image: url('https://images.unsplash.com/photo-1576919228236-a097c32a5cd4?w=1600&q=80');
+            background-image: url(img/bg.jpg);
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -612,23 +591,10 @@
             }
         }
 
-        // Create enhanced snowflakes
+        // Create enhanced snowflakes (disabled)
         function createSnowflakes() {
-            const snowflakesContainer = document.getElementById('snowflakes');
-            const snowflakeCount = 40;
-            const snowflakeChars = ['❄', '❅', '❆', '✻', '✼'];
-            
-            for (let i = 0; i < snowflakeCount; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.innerHTML = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
-                snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.animationDuration = (Math.random() * 4 + 3) + 's';
-                snowflake.style.animationDelay = Math.random() * 5 + 's';
-                snowflake.style.fontSize = (Math.random() * 15 + 12) + 'px';
-                snowflake.style.opacity = Math.random() * 0.6 + 0.4;
-                snowflakesContainer.appendChild(snowflake);
-            }
+            // Animasi snowflakes dinonaktifkan
+            return;
         }
 
         // Create sparkle effects
